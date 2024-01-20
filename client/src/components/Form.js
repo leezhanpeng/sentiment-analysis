@@ -20,10 +20,14 @@ const Form = () => {
         setIsLoading(true);
         
         // TODO: call backend to analyse, get back the result (apparently will get back 3 number, positive, neutral, negative)
-        // axios.post('URL');
+        // axios.post('http://127.0.0.1:5000/searchPost', {
+            // searchString: text
+        // });
 
         // temporary 10s timeout to simulate waiting.
         setTimeout(() => {
+            // I DON'T KNOW HOW TO SMOOTH SCROLL TO 100%... (But still can finish off without it)
+        
             setModalVisible(true);
             setIsLoading(false);
             setText("");
