@@ -22,9 +22,9 @@ const Progress = ({ isFinished, showResults }) => {
           finishTimer = setInterval(() => {
             setProgress((oldProgress) => {
               const diff = Math.random() * 1;
-              return Math.min(oldProgress + diff, 100);
+              return Math.min(oldProgress + diff, 105);
             });
-          }, 500);
+          }, 50);
         }
     
         return () => {
@@ -34,7 +34,7 @@ const Progress = ({ isFinished, showResults }) => {
     }, [isFinished]);
 
     useEffect(() => {
-      if (isFinished && progress >= 100) {
+      if (isFinished && progress >= 105) {
           showResults();
       }
   }, [isFinished, progress]);

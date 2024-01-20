@@ -39,6 +39,12 @@ const Form = () => {
         // temporary 20s timeout to simulate waiting.
         setTimeout(() => {
             setIsFinished(true);
+
+            const dummyResult = { 'POS': 0.0833340648240058, 'NEU': 0.5326293129903132, 'NEG': 0.3840466234927075 };
+            setAnalyseResults({
+                ...dummyResult,
+                text: text
+            });
         }, 20000);
     }
 
