@@ -20,45 +20,24 @@ reddit = praw.Reddit(
     username=os.getenv("REDDITUSERNAME"),
 ) 
 
-
-
-@app.get("/testGet")
-def test_get():
-    
-    return "testget hit"
-
-@app.post("/testPost")
-def test_post():
-    data = request.json
-    return jsonify(data)
-
 @app.post("/searchPost")
 def search_post():
     searchString = request.json["searchString"]
     commentList = {"list": []}
     response = {
         "sentiments" : {},
-        "topics" : []
+        "topics" : {}
     }
     all = reddit.subreddit("all")
-    count = 0
     for submission in all.search(searchString, limit=10):
-        #submission.comments.replace_more(limit=None)
-        #print(submission.title)
         commentList["list"].append(submission.title)
-        #count += submission.num_comments
         for comment in submission.comments[:5]:
             if not isinstance(comment, MoreComments):
                 commentList["list"].append(comment.body)
-    # print(commentList["list"])
-    # print(len(commentList["list"]))
-    # print(count)
     sentiments = model.get_sentiment(commentList["list"][:50])
-    print(sentiments)
     topics = topic.get_topics(searchString, commentList["list"], 5)
-    print(topics)
-    response["sentiments"] = sentiments
-    response["topics"] = topics
+    response["sentiments"] = {key: str(value) for key, value in sentiments.items()}
+    response["topics"] = {key: str(value) for key, value in topics.items()}
     return jsonify(response)
 
 if __name__ == '__main__':
