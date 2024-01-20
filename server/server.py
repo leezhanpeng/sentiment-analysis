@@ -5,6 +5,7 @@ from markupsafe import escape
 from dotenv import load_dotenv
 import os
 from os.path import join,dirname
+from model import model
 
 app = Flask(__name__)
 dotenv_path = join(dirname(__file__), ".env")
@@ -38,7 +39,7 @@ def search_post():
         for comment in i.comments[:10]:
             if not isinstance(comment, MoreComments):
                 commentList["list"].append(comment.body)
-    # print(commentList)
+    print(commentList["list"][:2])
     return jsonify(commentList)
 
 if __name__ == '__main__':
