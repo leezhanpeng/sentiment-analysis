@@ -6,8 +6,10 @@ from dotenv import load_dotenv
 import os
 from os.path import join,dirname
 from model import model
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 dotenv_path = join(dirname(__file__), ".env")
 load_dotenv(dotenv_path)
 reddit = praw.Reddit(
@@ -40,6 +42,8 @@ def search_post():
             if not isinstance(comment, MoreComments):
                 commentList["list"].append(comment.body)
     print(commentList["list"][:2])
+    out = model.get_sentiment(commentList["list"])
+    print(out)
     return jsonify(commentList)
 
 if __name__ == '__main__':

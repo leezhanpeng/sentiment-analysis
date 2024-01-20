@@ -20,13 +20,13 @@ const Form = () => {
         setIsLoading(true);
         
         // TODO: call backend to analyse, get back the result (apparently will get back 3 number, positive, neutral, negative)
-        // const response = await axios.post('http://127.0.0.1:5000/searchPost', {
-            // searchString: text
-        // });
-        // setAnalyseResults(response);
-        // setModalVisible(true);
-        // setIsLoading(false);
-        // setText("");
+        const response = await axios.post('http://127.0.0.1:5000/searchPost', {
+            searchString: text
+        });
+        setAnalyseResults(response);
+        setModalVisible(true);
+        setIsLoading(false);
+        setText("");
 
         // temporary 10s timeout to simulate waiting.
         setTimeout(() => {
