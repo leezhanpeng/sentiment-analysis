@@ -1,32 +1,4 @@
-from typing import Union, List
-from transformers import pipeline
-
-# Set up pipeline for sentiment analysis
-pipe = pipeline("text-classification", model="finiteautomata/bertweet-base-sentiment-analysis", top_k=None, truncation=True)
-
-def get_sentiment(input: Union[str, List[str]]) -> (int):
-    """
-    Generates the sentiment of given input.
-
-    Parameters:
-            input (string/list[string]): The text(s) to derive sentiment from.
-    Returns:
-            binary_sum (str): Binary string of the sum of a and b
-    """
-
-    classifications = pipe(input)
-    result = {}
-    for output in classifications:
-        for sentiment in output:
-            sentiment_type = sentiment["label"]
-            result[sentiment_type] = result.get(sentiment_type, 0) + sentiment["score"]
-    
-    result = {key: value / len(classifications) for key, value in result.items()}
-    return result
-
-if __name__ == "__main__":
-    vals = {
-  "list": [
+texts = [
     "Furthermore, Ong Beng Seng is my secret lover. These are his acts of love and the only thing he expected in return are physical contacts not business contracts.",
     "How is he going to explain all those evidence?\n\n'Friendship gifts'?",
     "And I thought Singapore politics is boring but these two years, it’s all blockbusters all year round!\n \nThe trial is going to be bigger than GE 2024!",
@@ -78,5 +50,13 @@ if __name__ == "__main__":
     "Too many of “ in my opinion “ here\n\nTake a read here on the code of conduct and you know your opinion doesn’t really matter.\n\nhttps://www.nas.gov.sg/archivesonline/data/pdfdoc/20050803-Code%20of%20COnduct%20for%20Ministers.pdf",
     "Because everyone is doing it in some form or shape within the team. \n\nIn corporate organisation this happens very often too. Supplier entertainment etc. Just whether they wanna catch or if you never follow SOP. Even if you follow SOP doesn’t mean “incorruptible”."
   ]
-}
-    print(get_sentiment(vals["list"]))
+
+from bertopic import BERTopic
+# Create a BERTopic model
+model = BERTopic(embedding_model="all-MiniLM-L6-v2")
+
+# Fit the model on your paragraphs
+topics, probabilities = model.fit_transform(texts)
+
+print(model.get_topic_info())
+print(model.get_topic(0))
