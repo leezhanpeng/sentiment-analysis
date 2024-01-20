@@ -39,15 +39,17 @@ def search_post():
     all = reddit.subreddit("all")
     count = 0
     for submission in all.search(searchString, limit=10):
-        submission.comments.replace_more(limit=None)
-        count += submission.num_comments
-        for comment in submission.comments.list():
-            # if not isinstance(comment, MoreComments):
-            commentList["list"].append(comment.body)
+        #submission.comments.replace_more(limit=None)
+        #print(submission.title)
+        commentList["list"].append(submission.title)
+        #count += submission.num_comments
+        for comment in submission.comments[:5]:
+            if not isinstance(comment, MoreComments):
+                commentList["list"].append(comment.body)
     # print(commentList["list"])
     # print(len(commentList["list"]))
     # print(count)
-    out = model.get_sentiment(commentList["list"][:1000])
+    out = model.get_sentiment(commentList["list"][:50])
     # print(out)
     return jsonify(commentList)
 
