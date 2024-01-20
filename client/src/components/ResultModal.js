@@ -16,7 +16,11 @@ const style = {
   p: 4,
 };
 
-const ResultModal = ({ isVisible, setIsVisible, analyseResults }) => {
+const ResultModal = ({ 
+  isVisible, 
+  setIsVisible, 
+  analyseResults
+}) => {
   const handleClose = () => setIsVisible(false);
 
   return (

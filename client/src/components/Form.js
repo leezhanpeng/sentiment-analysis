@@ -13,6 +13,14 @@ const Form = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const [analyseResults, setAnalyseResults] = useState({});
+    const [isFinished, setIsFinished] = useState(false);
+
+    const showResults = () => {
+        setModalVisible(true);
+        setText("");
+        setIsFinished(false);
+        setIsLoading(false);
+    }
 
     const analyseHandler = async e => {
         e.preventDefault();
@@ -20,21 +28,17 @@ const Form = () => {
         setIsLoading(true);
         
         // TODO: call backend to analyse, get back the result (apparently will get back 3 number, positive, neutral, negative)
-        const response = await axios.post('http://127.0.0.1:5000/searchPost', {
-            searchString: text
-        });
-        setAnalyseResults(response);
-        setModalVisible(true);
-        setIsLoading(false);
-        setText("");
+        // const response = await axios.post('http://127.0.0.1:5000/searchPost', {
+        //     searchString: text
+        // });
+        // setAnalyseResults(response);
+        // setModalVisible(true);
+        // setIsLoading(false);
+        // setText("");
 
-        // temporary 10s timeout to simulate waiting.
+        // temporary 20s timeout to simulate waiting.
         setTimeout(() => {
-            // I DON'T KNOW HOW TO SMOOTH SCROLL TO 100%... (But still can finish off without it)
-        
-            setModalVisible(true);
-            setIsLoading(false);
-            setText("");
+            setIsFinished(true);
         }, 20000);
     }
 
@@ -53,11 +57,12 @@ const Form = () => {
                 label="Enter your keyword" 
                 variant="standard"
                 autoFocus
+                value={text}
                 onChange={e => setText(e.target.value)}
             />
             {
                 isLoading
-                    ? <Progress />
+                    ? <Progress isFinished={isFinished} showResults={showResults} />
                     : (
                         <Button 
                             variant="contained" 
