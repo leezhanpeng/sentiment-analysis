@@ -51,6 +51,7 @@ const Form = () => {
                 id="standard-basic" 
                 label="Enter your keyword" 
                 variant="standard"
+                autoFocus
                 onChange={e => setText(e.target.value)}
             />
             {
