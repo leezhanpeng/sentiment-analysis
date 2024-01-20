@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+import BarChartResult from './BarChartResult';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
@@ -19,9 +19,14 @@ const style = {
 const ResultModal = ({ 
   isVisible, 
   setIsVisible, 
-  analyseResults
+  analyseResults,
+  text,
+  setText
 }) => {
-  const handleClose = () => setIsVisible(false);
+  const handleClose = () => {
+    setIsVisible(false);
+    setText("");
+  };
 
   return (
     <div>
@@ -36,8 +41,11 @@ const ResultModal = ({
             Results
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            { analyseResults["text"] }
           </Typography>
+          <BarChartResult
+            analyseResults={analyseResults}
+          />
         </Box>
       </Modal>
     </div>
