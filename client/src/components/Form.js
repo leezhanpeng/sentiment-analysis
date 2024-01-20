@@ -12,6 +12,7 @@ const Form = () => {
     const [text, setText] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
+    const [analyseResults, setAnalyseResults] = useState({});
 
     const analyseHandler = e => {
         e.preventDefault();
@@ -26,7 +27,7 @@ const Form = () => {
             setModalVisible(true);
             setIsLoading(false);
             setText("");
-        }, 10000);
+        }, 20000);
     }
 
     return (
@@ -61,6 +62,7 @@ const Form = () => {
             <ResultModal 
                 isVisible={modalVisible}
                 setIsVisible={setModalVisible}
+                analyseResults={analyseResults}
             />
         </Box>
     );
