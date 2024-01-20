@@ -35,7 +35,7 @@ def search_post():
             if not isinstance(comment, MoreComments):
                 commentList["list"].append(comment.body)
     sentiments = model.get_sentiment(commentList["list"][:50])
-    topics = topic.get_topics(searchString, commentList["list"], 5)
+    topics = topic.get_topics(searchString, commentList["list"], 25)
     response["sentiments"] = {key: str(value) for key, value in sentiments.items()}
     response["topics"] = {key: str(value) for key, value in topics.items()}
     return jsonify(response)

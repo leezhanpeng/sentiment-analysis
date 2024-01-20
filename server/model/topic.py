@@ -27,14 +27,14 @@ def get_topics(search_string: str, input: List[str], num_topics: int) -> List[Tu
         - result (dict): Topic probability pairs represented in a dictionary.
     """
     texts = [
-        [lemmatizer.lemmatize(word) if len(word) > 3 else word for word in word_tokenize(document.lower()) if word.isalnum() and word not in stop_words] for document in input
+        [lemmatizer.lemmatize(word) if len(word) > 3 else word for word in word_tokenize(document.lower()) if word.isalnum() and word not in stop_words] for document in input if "/" not in document
     ]
 
     keywords = [
-        [lemmatizer.lemmatize(word) if len(word) > 3 else word for word in word_tokenize(document.lower()) if word.isalnum() and word not in stop_words] for document in search_string.split(" ")
+        lemmatizer.lemmatize(word) if len(word) > 3 else word for word in word_tokenize(search_string.lower()) if word.isalnum() and word not in stop_words 
     ]
 
-    texts = [string for string in texts if string not in keywords]
+    texts = list(map(lambda x: [word for word in x if word not in keywords], texts))
 
     dictionary = corpora.Dictionary(texts)
     corpus = [dictionary.doc2bow(text) for text in texts]
@@ -45,7 +45,7 @@ def get_topics(search_string: str, input: List[str], num_topics: int) -> List[Tu
     for topic_id in range(lda_model.num_topics):
         topic_words = lda_model.show_topic(topic_id)
         for word, probability in topic_words:
-            if word not in words:
+            if word not in words and len(word) != 1:
                 topics.append((word, probability))
                 words.add(word)
 
