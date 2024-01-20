@@ -1,9 +1,10 @@
-import warnings
-from typing import Union, List
+import os
 
+from typing import Union, List
 from transformers import pipeline
 
-warnings.filterwarnings("ignore", category=UserWarning, module="xformers")
+# Disable info and warning messages
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 # Set up pipeline for sentiment analysis
 pipe = pipeline("text-classification", model="finiteautomata/bertweet-base-sentiment-analysis", top_k=None)
@@ -18,6 +19,15 @@ def get_sentiment(input: Union[str, List[str]]) -> (int):
             binary_sum (str): Binary string of the sum of a and b
     """
 
-    return pipe(input)
+    classifications = pipe(input)
+    result = {}
+    for output in classifications:
+        for sentiment in output:
+            sentiment_type = sentiment["label"]
+            result[sentiment_type] = result.get(sentiment_type, 0) + sentiment["score"]
+    
+    result = {key: value / len(classifications) for key, value in result.items()}
+    return result
 
-def 
+
+print(get_sentiment("Hi i am very happy."))
