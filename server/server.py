@@ -5,7 +5,7 @@ from markupsafe import escape
 from dotenv import load_dotenv
 import os
 from os.path import join,dirname
-from model import model
+from model import model, topic
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -49,8 +49,10 @@ def search_post():
     # print(commentList["list"])
     # print(len(commentList["list"]))
     # print(count)
-    out = model.get_sentiment(commentList["list"][:50])
-    # print(out)
+    sentiments = model.get_sentiment(commentList["list"][:50])
+    topics = topic.get_topics(commentList["list"], 5)
+    print(sentiments)
+    print(topics)
     return jsonify(commentList)
 
 if __name__ == '__main__':
