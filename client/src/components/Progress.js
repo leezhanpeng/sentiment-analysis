@@ -10,7 +10,7 @@ const Progress = ({ isFinished, showResults }) => {
             if (oldProgress >= 90) {
               return oldProgress; // make it stuck at 90 until we get back the result
             }
-            const diff = Math.random() * 8;
+            const diff = Math.random() * 5;
             return Math.min(oldProgress + diff, 100);
           });
         }, 500);

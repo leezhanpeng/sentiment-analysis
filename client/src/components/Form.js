@@ -22,30 +22,31 @@ const Form = () => {
         setIsLoading(false);
     }
 
-    const analyseHandler = async e => {
+    const analyseHandler = e => {
         e.preventDefault();
 
         setIsLoading(true);
         
         // TODO: call backend to analyse, get back the result (apparently will get back 3 number, positive, neutral, negative)
-        // const response = await axios.post('http://127.0.0.1:5000/searchPost', {
-        //     searchString: text
-        // });
-        // setAnalyseResults(response);
-        // setModalVisible(true);
-        // setIsLoading(false);
-        // setText("");
-
-        // temporary 20s timeout to simulate waiting.
-        setTimeout(() => {
+        axios.post('http://127.0.0.1:5000/searchPost', {
+            searchString: text
+        }).then((response) => {
+            console.log(response);
             setIsFinished(true);
-
-            const dummyResult = { 'POS': 0.0833340648240058, 'NEU': 0.5326293129903132, 'NEG': 0.3840466234927075 };
             setAnalyseResults({
-                ...dummyResult,
+                ...response.data.sentiments,
                 text: text
             });
-        }, 20000);
+        }).catch((error) => {
+            console.log(error);
+        })
+
+
+        // temporary 20s timeout to simulate waiting.
+        // setTimeout(() => {
+
+        //     const response = { 'POS': 0.0833340648240058, 'NEU': 0.5326293129903132, 'NEG': 0.3840466234927075 };
+        // }, 20000);
     }
 
     return (

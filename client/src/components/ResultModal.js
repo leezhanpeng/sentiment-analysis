@@ -20,12 +20,9 @@ const ResultModal = ({
   isVisible, 
   setIsVisible, 
   analyseResults,
-  text,
-  setText
 }) => {
   const handleClose = () => {
     setIsVisible(false);
-    setText("");
   };
 
   return (
