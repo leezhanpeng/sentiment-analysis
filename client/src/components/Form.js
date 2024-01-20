@@ -14,15 +14,19 @@ const Form = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [analyseResults, setAnalyseResults] = useState({});
 
-    const analyseHandler = e => {
+    const analyseHandler = async e => {
         e.preventDefault();
 
         setIsLoading(true);
         
         // TODO: call backend to analyse, get back the result (apparently will get back 3 number, positive, neutral, negative)
-        // axios.post('http://127.0.0.1:5000/searchPost', {
+        // const response = await axios.post('http://127.0.0.1:5000/searchPost', {
             // searchString: text
         // });
+        // setAnalyseResults(response);
+        // setModalVisible(true);
+        // setIsLoading(false);
+        // setText("");
 
         // temporary 10s timeout to simulate waiting.
         setTimeout(() => {
