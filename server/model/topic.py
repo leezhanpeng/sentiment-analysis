@@ -14,11 +14,12 @@ stop_words = set(get_stop_words('en'))
 lemmatizer = WordNetLemmatizer()
 
 
-def get_topics(input: List[str], num_topics: int) -> List[Tuple[str, int]]:
+def get_topics(search_string: str, input: List[str], num_topics: int) -> List[Tuple[str, int]]:
     """
     Generates the topics of given input.
 
     Parameters:
+        - search_string (string): The keyword used as initial input in frontend.
         - input (list[string]): The text(s) to derive topics from.
         - num_topics (int): The number of topics to return.
 
@@ -28,6 +29,12 @@ def get_topics(input: List[str], num_topics: int) -> List[Tuple[str, int]]:
     texts = [
         [lemmatizer.lemmatize(word) for word in word_tokenize(document.lower()) if word.isalnum() and word not in stop_words] for document in input
     ]
+
+    keywords = [
+        [lemmatizer.lemmatize(word) for word in word_tokenize(document.lower()) if word.isalnum() and word not in stop_words] for document in search_string.split(" ")
+    ]
+
+    texts = [string for string in texts if string not in keywords]
 
     dictionary = corpora.Dictionary(texts)
     corpus = [dictionary.doc2bow(text) for text in texts]
