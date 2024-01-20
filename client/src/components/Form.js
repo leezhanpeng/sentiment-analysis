@@ -4,37 +4,29 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 import '../styles/Form.css';
-import LinearProgress from '@mui/material/LinearProgress';
+import ResultModal from "./ResultModal";
 import axios from 'axios';
+import Progress from "./Progress";
 
 const Form = () => {
     const [text, setText] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const [progress, setProgress] = React.useState(0);
-
-    useEffect(() => {
-        const timer = setInterval(() => {
-          setProgress((oldProgress) => {
-            if (oldProgress === 100) {
-              return 0;
-            }
-            const diff = Math.random() * 10;
-            return Math.min(oldProgress + diff, 100);
-          });
-        }, 500);
-    
-        return () => {
-          clearInterval(timer);
-        };
-    }, []);
+    const [modalVisible, setModalVisible] = useState(false);
 
     const analyseHandler = e => {
         e.preventDefault();
 
         setIsLoading(true);
         
-        // TODO: call backend to analyse
+        // TODO: call backend to analyse, get back the result (apparently will get back 3 number, positive, neutral, negative)
         // axios.post('URL');
+
+        // temporary 10s timeout to simulate waiting.
+        setTimeout(() => {
+            setModalVisible(true);
+            setIsLoading(false);
+            setText("");
+        }, 10000);
     }
 
     return (
@@ -56,7 +48,7 @@ const Form = () => {
             />
             {
                 isLoading
-                    ? <LinearProgress variant="determinate" value={progress} />
+                    ? <Progress />
                     : (
                         <Button 
                             variant="contained" 
@@ -66,6 +58,10 @@ const Form = () => {
                         </Button>
                     )
             }
+            <ResultModal 
+                isVisible={modalVisible}
+                setIsVisible={setModalVisible}
+            />
         </Box>
     );
 };
