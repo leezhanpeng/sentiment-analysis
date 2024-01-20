@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import BarChartResult from './BarChartResult';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-
+import WordCloudResult from './WordCloudResult';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -20,6 +20,7 @@ const ResultModal = ({
   isVisible, 
   setIsVisible, 
   analyseResults,
+  analyseTopics,
 }) => {
   const handleClose = () => {
     setIsVisible(false);
@@ -40,6 +41,7 @@ const ResultModal = ({
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             { analyseResults["text"] }
           </Typography>
+          <WordCloudResult analyseTopics={analyseTopics} />
           <BarChartResult
             analyseResults={analyseResults}
           />

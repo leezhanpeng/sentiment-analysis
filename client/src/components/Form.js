@@ -14,6 +14,8 @@ const Form = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [analyseResults, setAnalyseResults] = useState({});
     const [isFinished, setIsFinished] = useState(false);
+    const [analyseTopics, setAnalyseTopics] = useState({});
+
 
     const showResults = () => {
         setModalVisible(true);
@@ -33,10 +35,9 @@ const Form = () => {
         }).then((response) => {
             console.log(response);
             setIsFinished(true);
-            setAnalyseResults({
-                ...response.data.sentiments,
-                text: text
-            });
+            setText(text)
+            setAnalyseResults(response.data.sentiments);
+            setAnalyseTopics(response.data.topics);
         }).catch((error) => {
             console.log(error);
         })
@@ -83,6 +84,7 @@ const Form = () => {
                 isVisible={modalVisible}
                 setIsVisible={setModalVisible}
                 analyseResults={analyseResults}
+                analyseTopics={analyseTopics}
             />
         </Box>
     );
