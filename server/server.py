@@ -1,4 +1,4 @@
-from flask import Flask 
+from flask import Flask, request, jsonify
 
 from markupsafe import escape
 
@@ -10,4 +10,9 @@ def test_get():
 
 @app.post("/testPost")
 def test_post():
-    return "testpost hit"
+    data = request.json
+    return jsonify(data)
+
+if __name__ == '__main__':
+    app.run()
+    
