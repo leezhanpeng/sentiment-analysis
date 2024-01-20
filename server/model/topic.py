@@ -27,11 +27,11 @@ def get_topics(search_string: str, input: List[str], num_topics: int) -> List[Tu
         - topics (dict): List of tuples that contain the topic probability pair.
     """
     texts = [
-        [lemmatizer.lemmatize(word) for word in word_tokenize(document.lower()) if word.isalnum() and word not in stop_words] for document in input
+        [lemmatizer.lemmatize(word) if len(word) > 3 else word for word in word_tokenize(document.lower()) if word.isalnum() and word not in stop_words] for document in input
     ]
 
     keywords = [
-        [lemmatizer.lemmatize(word) if len(word) >= 3 else word for word in word_tokenize(document.lower()) if word.isalnum() and word not in stop_words] for document in search_string.split(" ")
+        [lemmatizer.lemmatize(word) if len(word) > 3 else word for word in word_tokenize(document.lower()) if word.isalnum() and word not in stop_words] for document in search_string.split(" ")
     ]
 
     texts = [string for string in texts if string not in keywords]

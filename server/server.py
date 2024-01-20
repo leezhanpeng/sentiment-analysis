@@ -36,6 +36,10 @@ def test_post():
 def search_post():
     searchString = request.json["searchString"]
     commentList = {"list": []}
+    response = {
+        "sentiments" : {},
+        "topics" : []
+    }
     all = reddit.subreddit("all")
     count = 0
     for submission in all.search(searchString, limit=10):
@@ -50,10 +54,12 @@ def search_post():
     # print(len(commentList["list"]))
     # print(count)
     sentiments = model.get_sentiment(commentList["list"][:50])
-    topics = topic.get_topics(commentList["list"], 5)
     print(sentiments)
+    topics = topic.get_topics(searchString, commentList["list"], 5)
     print(topics)
-    return jsonify(commentList)
+    response["sentiments"] = sentiments
+    response["topics"] = topics
+    return jsonify(response)
 
 if __name__ == '__main__':
     app.run()
