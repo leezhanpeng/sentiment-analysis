@@ -23,19 +23,22 @@ reddit = praw.Reddit(
 @app.post("/searchPost")
 def search_post():
     searchString = request.json["searchString"]
+    sortFilter = request.json["sortFilter"]
+    timeFilter = request.json["timeFilter"]
+    depth = request.json["depth"]
     commentList = {"list": []}
     response = {
         "sentiments" : {},
         "topics" : {}
     }
     all = reddit.subreddit("all")
-    for submission in all.search(searchString, limit=10):
+    for submission in all.search(searchString, limit=10, sort=sortFilter, time_filter=timeFilter):
         commentList["list"].append(submission.title)
         for comment in submission.comments[:5]:
             if not isinstance(comment, MoreComments):
                 commentList["list"].append(comment.body)
-    sentiments = model.get_sentiment(commentList["list"][:50])
-    topics = topic.get_topics(searchString, commentList["list"], 50)
+    sentiments = model.get_sentiment(commentList["list"][:50], depth)
+    topics = topic.get_topics(searchString, commentList["list"], 50, depth)
     response["sentiments"] = {key: str(value) for key, value in sentiments.items()}
     response["topics"] = {key: str(value) for key, value in topics.items()}
     return jsonify(response)
