@@ -15,10 +15,10 @@ Welcome to the Reddit Sentiment Analysis project! This project utilizes state-of
 ## Getting Started
 
 1. **Clone the Repository:**
-    ```
-git clone https://github.com/leezhanpeng/sentiment-analysis.git
-cd sentiment-analysis
-    ```
+  ```
+  git clone https://github.com/leezhanpeng/sentiment-analysis.git
+  cd sentiment-analysis
+  ```
 
 2. **Install Dependencies:**
 - Frontend (React JS):
