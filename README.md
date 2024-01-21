@@ -1,6 +1,6 @@
 # Reddit Sentiment Analysis Project
 
-Welcome to the Reddit Sentiment Analysis project! This project utilizes state-of-the-art natural language processing techniques to analyse the sentiment of phrases within the Reddit community. Whether you're curious about the prevailing sentiments on a particular subreddit or want to gauge the mood surrounding a specific topic, this application has you covered.
+Welcome to the Reddit Sentiment Analysis project! This project utilises state-of-the-art natural language processing techniques to analyse the sentiment of phrases within the Reddit community. Whether you're curious about the prevailing sentiments on a particular subreddit or want to gauge the mood surrounding a specific topic, this application has you covered.
 
 ## Overview
 
