@@ -1,6 +1,6 @@
 # Reddit Sentiment Analysis Project
 
-Welcome to the Reddit Sentiment Analysis project! This project utilizes state-of-the-art natural language processing techniques to analyze the sentiment of phrases within the Reddit community. Whether you're curious about the prevailing sentiments on a particular subreddit or want to gauge the mood surrounding a specific topic, this application has you covered.
+Welcome to the Reddit Sentiment Analysis project! This project utilizes state-of-the-art natural language processing techniques to analyse the sentiment of phrases within the Reddit community. Whether you're curious about the prevailing sentiments on a particular subreddit or want to gauge the mood surrounding a specific topic, this application has you covered.
 
 ## Overview
 
@@ -10,7 +10,7 @@ Welcome to the Reddit Sentiment Analysis project! This project utilizes state-of
 
 - **Sentiment Analysis Model:** We leverage BERT (Bidirectional Encoder Representations from Transformers) for sentiment analysis, classifying phrases into Positive (POS), Neutral (NEU), or Negative (NEG) sentiments. BERT's contextual understanding ensures accurate sentiment predictions.
 
-- **Topic Modeling:** The application also employs BERTopic for topic modeling, enabling users to explore and understand the prevailing themes within the Reddit community.
+- **Topic Modeling:** The application also employs LdaModel from gensim for topic modeling, enabling users to explore and understand the prevailing themes within the Reddit community.
 
 ## Getting Started
 
@@ -24,7 +24,7 @@ Welcome to the Reddit Sentiment Analysis project! This project utilizes state-of
 - Frontend (React JS):
   ```
   cd client
-  npm install
+  npm install --legacy-peer-deps
   ```
 
 - Backend (Python Flask):
@@ -52,13 +52,9 @@ Open your web browser and navigate to `http://localhost:8080` to use the Reddit 
 ## Usage
 
 1. Enter a phrase in the provided input field.
-2. Click the "Analyze" button to initiate sentiment analysis.
+2. Click the "Analyse" button to initiate sentiment analysis.
 3. Explore the sentiment analysis results, including the sentiment classification and relevant topic information.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-Thank you for using the Reddit Sentiment Analysis project! If you have any questions or encounter issues, please don't hesitate to reach out. Happy analyzing!
+Thank you for using the Reddit Sentiment Analysis project! If you have any questions or encounter issues, please don't hesitate to reach out. Happy analysing!
