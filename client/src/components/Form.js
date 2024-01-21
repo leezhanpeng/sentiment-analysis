@@ -54,7 +54,7 @@ const Form = () => {
         axios.post('http://127.0.0.1:5000/searchPost', {
             searchString: text,
             sortFilter: sort,
-            timeFiler: time,
+            timeFilter: time,
             depth: depth
         }).then((response) => {
             console.log(response);
