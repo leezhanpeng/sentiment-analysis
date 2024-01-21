@@ -38,7 +38,7 @@ def get_topics(search_string: str, input: List[str], num_topics: int) -> List[Tu
 
     dictionary = corpora.Dictionary(texts)
     corpus = [dictionary.doc2bow(text) for text in texts]
-    lda_model = LdaModel(corpus, num_topics=10, id2word=dictionary, passes=15)
+    lda_model = LdaModel(corpus, num_topics=10, id2word=dictionary, passes=15, random_state=69)
 
     topics = []
     words = set()
