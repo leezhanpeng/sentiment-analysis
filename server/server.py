@@ -20,6 +20,12 @@ reddit = praw.Reddit(
     username=os.getenv("REDDITUSERNAME"),
 ) 
 
+depthValue = {
+    "low" : [5, 5, 25],
+    "medium" : [10,5,50],
+    "high" : [10, 8, 80]
+}
+
 @app.post("/searchPost")
 def search_post():
     searchString = request.json["searchString"]
@@ -32,17 +38,16 @@ def search_post():
         "topics" : {}
     }
     all = reddit.subreddit("all")
-    for submission in all.search(searchString, limit=10, sort=sortFilter, time_filter=timeFilter):
+    for submission in all.search(searchString, limit=depthValue[depth][0], sort=sortFilter, time_filter=timeFilter):
         commentList["list"].append(submission.title)
-        for comment in submission.comments[:5]:
+        for comment in submission.comments[:depthValue[depth][1]]:
             if not isinstance(comment, MoreComments):
                 commentList["list"].append(comment.body)
-    sentiments = model.get_sentiment(commentList["list"][:50], depth)
-    topics = topic.get_topics(searchString, commentList["list"], 50, depth)
+    sentiments = model.get_sentiment(commentList["list"][:depthValue[depth][2]])
+    topics = topic.get_topics(searchString, commentList["list"], 50)
     response["sentiments"] = {key: str(value) for key, value in sentiments.items()}
     response["topics"] = {key: str(value) for key, value in topics.items()}
     return jsonify(response)
 
 if __name__ == '__main__':
     app.run()
-    

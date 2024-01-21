@@ -84,6 +84,8 @@ const Form = () => {
             autoComplete="off"
             className="form-container"
         >
+        <div className={"filtersection"}>
+        <label className={"filtertitle"} >Sort by:</label>
         <Select
         options={sortFilter}
         defaultValue={{ value: 'relevance', label: 'Relevance' }}
@@ -91,6 +93,11 @@ const Form = () => {
             setSort(e.value);
         }}
         />
+
+        </div>
+
+        <div className={"filtersection"}>
+        <label className={"filtertitle"} >Time:</label>
         <Select
         options={timeFilter}
         defaultValue={{ value: 'all', label: 'All' }}
@@ -98,6 +105,10 @@ const Form = () => {
             setTime(e.value);
         }}
         />
+
+        </div>
+        <div className={"filtersection"}>
+        <label className={"filtertitle"} >Depth:</label>
         <Select
         options={depthFilter}
         defaultValue={{ value: 'medium', label: 'Medium' }}
@@ -105,7 +116,10 @@ const Form = () => {
             setDepth(e.value);
         }}
         />
-            <TextField 
+
+        </div>
+
+                                <TextField 
                 id="standard-basic" 
                 label="Enter your keyword" 
                 variant="standard"
