@@ -7,6 +7,7 @@ import '../styles/Form.css';
 import ResultModal from "./ResultModal";
 import axios from 'axios';
 import Progress from "./Progress";
+import Select from 'react-select';
 
 const Form = () => {
     const [text, setText] = useState("");
@@ -15,8 +16,28 @@ const Form = () => {
     const [analyseResults, setAnalyseResults] = useState({});
     const [isFinished, setIsFinished] = useState(false);
     const [analyseTopics, setAnalyseTopics] = useState({});
-
-
+    const [sort, setSort] = useState("relevance");
+    const [time, setTime] = useState("all");
+    const [depth, setDepth] = useState("medium");
+    
+    const sortFilter = [
+        { value: 'relevance', label: 'Relevance' },
+        { value: 'hot', label: 'Hot' },
+        { value: 'top', label: 'Top' },
+        {value: 'new', label: 'New'}
+    ]
+    const timeFilter = [
+        { value: 'day', label: 'Day' },
+        { value: 'week', label: 'Week' },
+        { value: 'month', label: 'Month' },
+        { value: 'year', label: 'Year' },
+        { value: 'all', label: 'All' },
+    ]
+    const depthFilter = [
+        { value: 'low', label: 'low' },
+        { value: 'medium', label: 'Medium' },
+        { value: 'high', label: 'High' }
+    ]
     const showResults = () => {
         setModalVisible(true);
         setText("");
@@ -31,7 +52,10 @@ const Form = () => {
         
         // TODO: call backend to analyse, get back the result (apparently will get back 3 number, positive, neutral, negative)
         axios.post('http://127.0.0.1:5000/searchPost', {
-            searchString: text
+            searchString: text,
+            sortFilter: sort,
+            timeFiler: time,
+            depth: depth
         }).then((response) => {
             console.log(response);
             setIsFinished(true);
@@ -60,6 +84,27 @@ const Form = () => {
             autoComplete="off"
             className="form-container"
         >
+        <Select
+        options={sortFilter}
+        defaultValue={{ value: 'relevance', label: 'Relevance' }}
+        onChange={e => {
+            setSort(e.value);
+        }}
+        />
+        <Select
+        options={timeFilter}
+        defaultValue={{ value: 'all', label: 'All' }}
+        onChange={e => {
+            setTime(e.value);
+        }}
+        />
+        <Select
+        options={depthFilter}
+        defaultValue={{ value: 'medium', label: 'Medium' }}
+        onChange={e => {
+            setDepth(e.value);
+        }}
+        />
             <TextField 
                 id="standard-basic" 
                 label="Enter your keyword" 
